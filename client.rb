@@ -9,8 +9,8 @@ def send_command(socket_path, command)
   socket.puts(command)
   socket.close
 rescue Errno::ECONNREFUSED => e
-rescue Errno::ENOENT => e
-  puts "Connection refused, how about starting the daemon?"
+rescue Errno::ECONNREFUSED => e
+  puts "Couldn't open socket #{socket_path}, how about starting the daemon?"
 end
 
 send_command(SOCKET_PATH, ARGV.join(" "))
