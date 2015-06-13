@@ -25,6 +25,8 @@ def run_as_command(command)
   )
 end
 
+File.unlink(SOCKET_PATH)
+
 server = UNIXServer.open(SOCKET_PATH) do |server|
   loop do
     begin
