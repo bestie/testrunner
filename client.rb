@@ -2,7 +2,7 @@
 
 require "socket"
 
-socket_path = "socket"
+SOCKET_PATH = ENV.fetch("TEST_RUNNER_SOCKET", "./.test_runner_socket")
 
 def send_command(socket_path, command)
   socket = UNIXSocket.new(socket_path)
@@ -13,4 +13,4 @@ rescue Errno::ENOENT => e
   puts "Connection refused, how about starting the daemon?"
 end
 
-send_command(socket_path, ARGV.join(" "))
+send_command(SOCKET_PATH, ARGV.join(" "))

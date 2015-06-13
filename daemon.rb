@@ -2,7 +2,7 @@
 
 require "socket"
 
-socket_path = "socket"
+SOCKET_PATH = ENV.fetch("TEST_RUNNER_SOCKET", "./.test_runner_socket")
 
 def run_as_command(command)
   Process.wait(
@@ -12,7 +12,7 @@ def run_as_command(command)
   )
 end
 
-UNIXServer.open(socket_path) do |server|
+server = UNIXServer.open(SOCKET_PATH) do |server|
   loop do
     begin
       socket = server.accept
