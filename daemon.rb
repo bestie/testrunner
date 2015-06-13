@@ -35,14 +35,15 @@ server = UNIXServer.open(SOCKET_PATH) do |server|
       puts input
 
       if input == "exit\n"
-        puts "Got exit"
+        puts "Exiting ..."
         break
       end
 
       run_as_command(input)
-      socket.close
-    # rescue EOFError => e
-    #   binding.pry
+    rescue Interrupt => e
+      break
+    ensure
+      socket && socket.close
     end
   end
 end
