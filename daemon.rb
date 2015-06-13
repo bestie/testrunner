@@ -7,7 +7,20 @@ SOCKET_PATH = ENV.fetch("TEST_RUNNER_SOCKET", "./.test_runner_socket")
 def run_as_command(command)
   Process.wait(
     Process.fork do
-      Process.exec(command)
+      output = []
+      pipe = IO.popen(command).each do |line|
+        puts line
+        output << line
+      end
+
+      pipe.close
+
+      # TODO maybe use Open4 to get around this nastiness and handle STDERR better
+      exit_code = $?.exitstatus
+
+      puts "%%%%%%%%%%%%% Lines #{output.length}"
+      puts "%%%%%%%%%%%%% Total chars #{output.join.length}"
+      puts "%%%%%%%%%%%%% Exit code #{exit_code}"
     end
   )
 end
