@@ -1,6 +1,6 @@
 # Toy test runner
 
-## What is is?
+## What is it?
 
 Test runner experiment where a server is run in one terminal and other terminals / editors can pass commands to it through a socket.
 
