@@ -27,7 +27,7 @@ end
 
 File.unlink(SOCKET_PATH)
 
-server = UNIXServer.open(SOCKET_PATH) do |server|
+UNIXServer.open(SOCKET_PATH) do |server|
   loop do
     begin
       socket = server.accept
@@ -40,7 +40,7 @@ server = UNIXServer.open(SOCKET_PATH) do |server|
       end
 
       run_as_command(input)
-    rescue Interrupt => e
+    rescue Interrupt
       break
     ensure
       socket && socket.close
