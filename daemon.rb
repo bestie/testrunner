@@ -12,7 +12,7 @@ def run_as_command(command)
   )
 end
 
-File.unlink(SOCKET_PATH)
+File.unlink(SOCKET_PATH) if File.exist?(SOCKET_PATH)
 
 UNIXServer.open(SOCKET_PATH) do |server|
   loop do
